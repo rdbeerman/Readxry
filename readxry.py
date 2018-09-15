@@ -10,8 +10,11 @@ import tkinter as tk
 from tkinter import messagebox
 from tkinter import filedialog
 import numpy as np
-import matplotlib as plt
+import matplotlib.pyplot as plt
 from tkinter import *
+from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg, NavigationToolbar2TkAgg)
+from matplotlib.backend_bases import key_press_handler
+from matplotlib.figure import Figure
 
 filename = 'test.xry'
 
@@ -26,7 +29,7 @@ class Canvas(tk.Frame):
         self.canvas.bind("<Configure>", self.resize)
 
     def config_ui(self):
-        self.width = 800
+        self.width = 300
         self.height = 600
         self.master.title("FreeDar")
         self.master.resizable(True, True)
@@ -73,11 +76,11 @@ class Canvas(tk.Frame):
         self.filename = filedialog.askopenfilename(initialdir = "/",title = "Select file",filetypes = ((".xry files","*.xry"),("all files","*.*")))
 
         with open(self.filename, 'r') as self.file:
-            self.rawdata = self.file.readlines()
+            self.rawdata = self.file.read().splitlines()
 
-        self.Bmax.set(self.rawdata[4][:3])
-        self.Bmin.set(self.rawdata[4][4:6])
-        self.Bstep.set(self.rawdata[4][9:12])
+        self.Bmin.set(self.rawdata[4][:3])
+        self.Bmax.set(self.rawdata[4][4:6])
+        self.Bstep.set(self.rawdata[4][9:13])
         self.Tstep.set(self.rawdata[4][7:9])
 
         self.canvas.delete("Bmax", "Bmin", "Bstep","Tstep")
@@ -86,10 +89,20 @@ class Canvas(tk.Frame):
         self.plotdata()
 
     def plotdata(self):
-        self.data_beta = np.arrange(self.Bmin.get(),self.Bmax.get(),self.Bstep.get())
-        self.data_rate = np.array(self.rawdata[18:203])
-        print(self.data_beta)
-        #print(self.data_rate)
+        self.data_beta = np.arange(float(self.Bmin.get()),float(self.Bmax.get()) + float(self.Bstep.get()),float(self.Bstep.get()))
+        self.data_rate = np.array(self.rawdata[18:len(self.rawdata)-11]).astype(float)
+
+        print(self.data_rate)
+        #print(self.data_beta)
+
+        plt.plot(self.data_beta, self.data_rate)
+        plt.xlabel('angle (degrees)')
+        plt.ylabel('rate (s^-1)')
+        plt.ylim(0)
+        plt.xlim(float(self.Bmin.get()), float(self.Bmax.get()))
+        self.update()
+        plt.show()
+
 root = tk.Tk()
 mainWindow = Canvas(root)
 

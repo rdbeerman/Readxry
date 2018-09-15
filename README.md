@@ -7,13 +7,13 @@ Readxry currently offers the following features, subject to change:
 * Import data files.
 * Display Beta settings.
 * Plot Rate as a function of Beta.
+* Save plots as jpeg/png.
 
 Planned features are:
 
 * Transfer beta to wavelength for different crystals.
-* Save plots as jpeg/png.
+* Plot multiple measurement series.
 * Save data as .csv.
-* Display data files with multiple measurement series.
 
 ## Hardware
 Readxry is made for use with .xry files the Leybold x-ray Apparatus series.
