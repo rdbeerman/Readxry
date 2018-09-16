@@ -11,10 +11,7 @@ from tkinter import messagebox
 from tkinter import filedialog
 import numpy as np
 import matplotlib.pyplot as plt
-from tkinter import *
-from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg, NavigationToolbar2TkAgg)
-from matplotlib.backend_bases import key_press_handler
-from matplotlib.figure import Figure
+import matplotlib.animation as anim
 
 filename = 'test.xry'
 
@@ -92,16 +89,20 @@ class Canvas(tk.Frame):
         self.data_beta = np.arange(float(self.Bmin.get()),float(self.Bmax.get()) + float(self.Bstep.get()),float(self.Bstep.get()))
         self.data_rate = np.array(self.rawdata[18:len(self.rawdata)-11]).astype(float)
 
-        print(self.data_rate)
+        #print(self.data_rate)
         #print(self.data_beta)
 
-        plt.plot(self.data_beta, self.data_rate)
+        fig = plt.figure()
+        ax = fig.add_subplot(1,1,1)
+        ax.plot(self.data_beta, self.data_rate)
         plt.xlabel('angle (degrees)')
         plt.ylabel('rate (s^-1)')
         plt.ylim(0)
         plt.xlim(float(self.Bmin.get()), float(self.Bmax.get()))
+
+        #a = anim.FuncAnimation(fig, self.plotdata(), frames=3, repeat=False)
         self.update()
-        plt.show()
+        plt.show(block=False)
 
 root = tk.Tk()
 mainWindow = Canvas(root)
