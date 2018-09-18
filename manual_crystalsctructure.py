@@ -16,7 +16,7 @@ import matplotlib.pyplot as plt
 filenames = ["meting_Nacl_5s.xry", "meting_LiF_5s.xry", "meting_KBr_5s.xry"]			#change filenames
 labelnames = ["NaCl", "LiF", "KBr"]														#change label for each file (matplotlib)
 d = [564, 402.7, 659.7]																	#for transfering data_beta to data_nlabda with known values for d
-
+K_a = 70.9																				#known K_a wavelength for n = 1
 i = 0
 print ('K_a hoek:   Kd')
 
@@ -42,7 +42,7 @@ while i < len(filenames):
     i = i + 1
 
     K_angle = data_beta[np.argmax(data_rate)]
-    d_calc = 0.5 * (70.9/ np.sin(np.deg2rad(K_angle)))
+    d_calc = 0.5 * (K_a/ np.sin(np.deg2rad(K_angle)))
 
     print(K_angle, '  ' , d_calc)
 
