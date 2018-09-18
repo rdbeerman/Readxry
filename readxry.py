@@ -9,11 +9,10 @@
 import tkinter as tk
 from tkinter import messagebox
 from tkinter import filedialog
+from tkinter import ttk
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.animation as anim
-
-filename = 'test.xry'
 
 class Canvas(tk.Frame):
     def __init__(self, master):
