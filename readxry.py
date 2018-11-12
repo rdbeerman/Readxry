@@ -5,7 +5,7 @@
 @Date:          14/09/2018
 @License:       GNU General Public License v3.0
 """
-#import numpy as np
+import numpy as np
 import tkinter as tk
 from tkinter import messagebox
 from tkinter import filedialog
